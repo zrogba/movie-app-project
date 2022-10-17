@@ -1,5 +1,6 @@
 import './App.css';
 import { Component } from "react";
+import MovieList from "./components/movieList/movieList"
 
 class App extends Component {
   constructor(){
@@ -40,10 +41,10 @@ searchMoviesHandler = (e) => {
   });
 };
   render() {
-     let { showMovies } = this.state;
+     let { showMovies, searchInput, movies } = this.state;
 
-     const filteredMovies = this.state.movies.filter((movie) => {
-      return movie.Title.toLocaleLowerCase().includes(this.state.searchInput)
+     const filteredMovies = movies.filter((movie) => {
+      return movie.Title.toLocaleLowerCase().includes(searchInput)
      })
      let renderMovies = "Loading Movies.....";
 
@@ -71,11 +72,8 @@ searchMoviesHandler = (e) => {
         <input type="search"
         placeholder="Search movies"  
         
-        onChange={( e ) => {
-        const search = e.target.value;
-        this.setState(() => { 
-          return { searchInput: search}})
-      }} />
+        onChange={this.searchMoviesHandler} />
+        <MovieList title ={[ "Movie 1","Movie 2","Movie 3", "Movie 4" ]}/>
         { renderMovies }
       </div>
        //Method set this.state to trigger 
@@ -94,6 +92,8 @@ searchMoviesHandler = (e) => {
        // this.setState(() => { 
          // return { searchInput: search}})
          //12.remove this,state and include filtered to filter movies
+         //14. add movielist componet with props. create folder and files. 
+         //15. list of arrays in componet view
     );
   }
   

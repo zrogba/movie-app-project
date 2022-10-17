@@ -32,20 +32,31 @@ componentDidMount()  {
  })
  );
 }
+
+searchMoviesHandler = (e) => {
+  const search = e.target.value;
+  this.setState(() => {
+    return { searchInput: search}
+  });
+};
   render() {
      let { showMovies } = this.state;
+
+     const filteredMovies = this.state.movies.filter((movie) => {
+      return movie.Title.toLocaleLowerCase().includes(this.state.searchInput)
+     })
      let renderMovies = "Loading Movies.....";
 
      if ( showMovies ) {
       renderMovies = (
         <div>
-        { showMovies? this.state.movies.map(( movie ) => {
+        { filteredMovies.map(( movie ) => {
          return (
          <h2 key={ movie.Title }>
            my best movie is { movie.Title } { movie.Year }</h2>
        );
         })
-        : "no movies" }
+          }
        
      
      
@@ -78,6 +89,11 @@ componentDidMount()  {
          </button>*/
 
          //SEARCH INPUT
+         //ADD HANDLER SEARCHMMOVIESHANDLER, replace   
+         //const search = e.target.value;
+       // this.setState(() => { 
+         // return { searchInput: search}})
+         //12.remove this,state and include filtered to filter movies
     );
   }
   

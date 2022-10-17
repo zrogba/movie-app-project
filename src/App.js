@@ -49,22 +49,9 @@ searchMoviesHandler = (e) => {
      let renderMovies = "Loading Movies.....";
 
      if ( showMovies ) {
-      renderMovies = (
-        <div>
-        { filteredMovies.map(( movie ) => {
-         return (
-         <h2 key={ movie.Title }>
-           my best movie is { movie.Title } { movie.Year }</h2>
-       );
-        })
-          }
-       
-     
-     
-      
-       </div>
-      )
+      renderMovies = <MovieList movies = { filteredMovies }/>
      }
+     
     return (
       <div className="App">
          
@@ -73,7 +60,7 @@ searchMoviesHandler = (e) => {
         placeholder="Search movies"  
         
         onChange={this.searchMoviesHandler} />
-        <MovieList title ={[ "Movie 1","Movie 2","Movie 3", "Movie 4" ]}/>
+        <MovieList movies={filteredMovies}/>
         { renderMovies }
       </div>
        //Method set this.state to trigger 
@@ -93,7 +80,8 @@ searchMoviesHandler = (e) => {
          // return { searchInput: search}})
          //12.remove this,state and include filtered to filter movies
          //14. add movielist componet with props. create folder and files. 
-         //15. list of arrays in componet view
+         //15. list of arrays in componet view 
+         //adding props in parent componnet to use in children
     );
   }
   

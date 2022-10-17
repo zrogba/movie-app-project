@@ -1,5 +1,5 @@
 import './App.css';
-import {Component} from "react";
+import { Component } from "react";
 
 class App extends Component {
   constructor(){
@@ -7,6 +7,8 @@ class App extends Component {
 //single value as {}
     this.state = {
       movies: [],
+      showMovies: false,
+      searchInput: ""
     }
   };
     //1multiple value an array[with objeects of values {}]
@@ -15,36 +17,67 @@ class App extends Component {
 //3get array by number0,1,2..
   
 // the get movie from api then it changes state and react with component didmount
-//use the fetch method which is a promise, then a response. console.log -- json
+//the render is called before componentDidMount
+//use the fetch method which is a promise, then a response. console.log -- json of
+//.then((response) => console.log(response.json()));
 
 componentDidMount()  {
-  console.log("componentDidMount");
- 
+ fetch (
+  "https://my-json-server.typicode.com/horizon-code-academy/fake-movies-api/movies"
+ )
+ .then((response) => response.json())
+ .then((apiMovies) => 
+ this.setState(() => {
+  return { movies: apiMovies, showMovies: true };
+ })
+ );
 }
   render() {
-    console.log("render");
+     let { showMovies } = this.state;
+     let renderMovies = "Loading Movies.....";
+
+     if ( showMovies ) {
+      renderMovies = (
+        <div>
+        { showMovies? this.state.movies.map(( movie ) => {
+         return (
+         <h2 key={ movie.Title }>
+           my best movie is { movie.Title } { movie.Year }</h2>
+       );
+        })
+        : "no movies" }
+       
+     
+     
+      
+       </div>
+      )
+     }
     return (
       <div className="App">
          
          <h1>Welcome to moviescape</h1>
-         {this.state.movies.map((movie) => {
-          return (
-          <h2 key={movie.id}>
-            my best movie is {movie.name} {movie.year}</h2>
-        );
-         })}
+        <input type="search"
+        placeholder="Search movies"  
         
-      
-      
-       
-      
-
+        onChange={( e ) => {
+        const search = e.target.value;
+        this.setState(() => { 
+          return { searchInput: search}})
+      }} />
+        { renderMovies }
       </div>
        //Method set this.state to trigger 
        // 4button, change the dom and the key value of this.state
        //5.create  another method changeName to handle multiple states
        //6.in input change value  by seting event target value
        //7.using the map method create and return an array list of movies 
+       /* <button onClick={()=> {
+          this.setState({showMovies: !showMovies})
+         }}> show Movies
+         </button>*/
+
+         //SEARCH INPUT
     );
   }
   

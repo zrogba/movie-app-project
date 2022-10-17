@@ -1,6 +1,59 @@
 import './App.css';
-import { Component } from "react";
-import MovieList from "./components/movieList/movieList"
+import { useState, useEffect } from 'react';
+import MovieList from './components/movieList/movieList';
+
+const App  = ({ movie }) => {
+  const [movies, setMovies] = useState([]);
+  const [showMovies, setShowMovies] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+
+
+  useEffect (() => {
+    fetch (
+      "https://my-json-server.typicode.com/horizon-code-academy/fake-movies-api/movies"
+     )
+     .then((response) => response.json())
+     .then((apiMovies) => {
+     setMovies((apiMovies));
+     setShowMovies((true));    
+     })
+    
+  }, []);
+
+  const searchMoviesHandler = (e) => {
+    const search = e.target.value.toLocaleLowerCase();
+    setSearchInput(search);
+    
+  };
+
+  const filteredMovies = movies.filter((movie) => {
+    return movie.Title.toLocaleLowerCase().includes(searchInput)
+   });
+   let renderMovies = "Loading Movies.....";
+
+   if ( showMovies ) {
+    renderMovies = <MovieList movies = { filteredMovies }/>
+   }
+   
+  return (
+    <div className="App">
+       
+       <h1>Welcome to moviescape</h1>
+      <input type="search"
+      placeholder="Search movies"  
+      
+      onChange={searchMoviesHandler} />
+      <MovieList movies={filteredMovies}/>
+      { renderMovies }
+    </div>
+
+  );
+
+};
+
+export default App;
+
+/*
 
 class App extends Component {
   constructor(){
@@ -82,9 +135,10 @@ searchMoviesHandler = (e) => {
          //14. add movielist componet with props. create folder and files. 
          //15. list of arrays in componet view 
          //adding props in parent componnet to use in children
-    );
+         //conver to functional component 
+   /* );
   }
   
 }
-
-export default App;
+*/
+//export default App;

@@ -4,9 +4,11 @@ const MovieCard  = ({ movie }) => {
     const {Poster, Title, Year, Runtime} = movie;
     return (
         <div>
-       <img src={Poster} alt={Title}  />
+      <div>
+      <img src={Poster} alt={Title}  />
+        </div>
 
-       <h2>{Title} </h2>
+       <h5>{Title} </h5>
        <span>{Year} </span>
        <span>{Runtime} </span>
        </div>

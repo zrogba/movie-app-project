@@ -1,6 +1,8 @@
 import './App.css';
 import { useState, useEffect } from 'react';
+import { Routes, Route } from "react-router-dom";
 import MovieList from './components/movieList/movieList';
+import About from './components/movieList/pages/About';
 
 const App  = ({ movie }) => {
   const [movies, setMovies] = useState([]);
@@ -39,12 +41,21 @@ const App  = ({ movie }) => {
     <div className="App">
        
        <h1>Welcome to moviescape</h1>
-      <input type="search"
+
+       <div>
+       <input type="search"
       placeholder="Search movies"  
       
       onChange={searchMoviesHandler} />
-      <MovieList movies={filteredMovies}/>
-      { renderMovies }
+    
+        
+       </div>
+      <Routes>
+      
+        <Route path="/" element={ renderMovies } />
+      <Route path="about" element={<About />} />
+      </Routes>
+      
     </div>
 
   );

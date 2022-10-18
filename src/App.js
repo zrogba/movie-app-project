@@ -42,13 +42,16 @@ const App  = ({ movie }) => {
     <div className="App">
        
        <h1>Welcome to moviescape</h1>
-
-       <div>
-       <input type="search"
-      placeholder="Search movies"  
+<form>
+<input type="search" name='search'
+       
+      placeholder="Search"  
       
       onChange={searchMoviesHandler} />
     
+</form>
+       <div>
+      
         
        </div>
       <Routes>

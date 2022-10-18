@@ -13,7 +13,7 @@ const MovieDetails = () => {
             setMovie(data);
         };
         getMovie();
-    }, []);
+    }, [params.id]);
 
     const {id, Poster, Title, Year, Runtime} = movie;
     return (
@@ -22,7 +22,9 @@ const MovieDetails = () => {
       <img src={Poster} alt={Title}  />
         </div>
 <div>
-  <h5>{Title}</h5>
+  
+  <h5>{Title} </h5>
+
 
        <span>{Year} </span>
        <span>{Runtime} </span>
